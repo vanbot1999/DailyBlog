@@ -1,0 +1,16 @@
+/* custom.css */
+article {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+article header h2 {
+    color: #333;
+}
+
+article section img {
+    max-width: 100%;
+    height: auto;
+}
