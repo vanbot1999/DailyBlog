@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>上传博客</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/css/custom.css}">
+  <script src="https://cdn.tiny.cloud/1/rq5eg1xkg8hy7qutk92g7xldgzi4huwzwkmaz6gxn9c9sd9e/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <!-- 引入 PrismJS -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.js"></script>
+  <!-- 引入自定义 JavaScript -->
+  <script src="/js/custom-tinymce.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">编辑博客</h2>
+      <form th:action="@{/blogs/update}" th:object="${blog}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+          <label for="title">标题:</label>
+          <input type="text" class="form-control" th:field="*{title}">
+        </div>
+        <div class="form-group">
+          <label for="content">内容:</label>
+          <textarea class="form-control" rows="5" th:field="*{content}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">保存</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
