@@ -1,50 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>上传博客</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" th:href="@{/css/custom.css}">
-  <script src="https://cdn.tiny.cloud/1/rq5eg1xkg8hy7qutk92g7xldgzi4huwzwkmaz6gxn9c9sd9e/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-  <!-- 引入 PrismJS -->
-  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.js"></script>
+    <meta charset="UTF-8">
+    <title>上传博客</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <script src="https://cdn.tiny.cloud/1/rq5eg1xkg8hy7qutk92g7xldgzi4huwzwkmaz6gxn9c9sd9e/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
+    <!-- 引入 PrismJS -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.js"></script>
 </head>
 <body>
 <div th:replace="fragments/header"></div>
-
-<div class="container mt-5">
-  <div class="card">
-    <div class="card-body">
-      <h2 class="card-title">编辑博客</h2>
-      <form th:action="@{/blogs/update}" th:object="${blog}" method="post">
-        <input type="hidden" th:field="*{id}">
-        <div class="form-group">
-          <label for="title">标题:</label>
-          <input type="text" class="form-control" th:field="*{title}">
+<div class="dcs">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">编辑博客</h2>
+                <form th:action="@{/blogs/update}" th:object="${blog}" method="post">
+                    <input type="hidden" th:field="*{id}">
+                  <div class="form-row">
+                  <div class="form-group">
+                        <label for="title">标题:</label>
+                        <input type="text" class="form-control" th:field="*{title}">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                  <div class="form-group">
+                        <label for="content">内容:</label>
+                        <textarea class="form-control" rows="5" th:field="*{content}"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="content">内容:</label>
-          <textarea class="form-control" rows="5" th:field="*{content}"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">保存</button>
-      </form>
     </div>
-  </div>
 </div>
 <script>
-  tinymce.init({
-    selector: 'textarea',
-    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-  });
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+      mergetags_list: [
+        { value: 'First.Name', title: 'First Name' },
+        { value: 'Email', title: 'Email' },
+      ],
+      ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+    });
 </script>
 </body>
 </html>

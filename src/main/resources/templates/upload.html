@@ -5,40 +5,57 @@
     <title>上传博客</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/custom.css}">
-    <script src="https://cdn.tiny.cloud/1/rq5eg1xkg8hy7qutk92g7xldgzi4huwzwkmaz6gxn9c9sd9e/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/rq5eg1xkg8hy7qutk92g7xldgzi4huwzwkmaz6gxn9c9sd9e/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
     <!-- 引入 PrismJS -->
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.js"></script>
 </head>
 <body>
 <div th:replace="fragments/header"></div>
-
-<div class="container">
-    <h2>上传新博客</h2>
-    <form action="/blogs/upload" method="post">
-        <div class="form-group">
-            <label for="title">标题:</label>
-            <input type="text" id="title" name="title" required>
-        </div>
-        <div class="form-group">
-            <label for="content">内容:</label>
-            <textarea id="content" name="content" rows="10"></textarea>
-        </div>
-        <button type="submit">提交</button>
-    </form>
+<div class="dcs">
+    <div class="container">
+        <h2>上传新博客</h2>
+        <form action="/blogs/upload" method="post">
+            <div class="form-row">
+                <div class="form-group col-sm">
+                    <label for="title">标题</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm">
+                    <label for="content">内容</label>
+                    <textarea id="content" name="content" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="form-row col-sm">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </form>
+    </div>
 </div>
 <script>
     tinymce.init({
       selector: 'textarea',
-      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+      skin: 'bootstrap',
+      icons: 'bootstrap',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags autocorrect typography inlinecss',
       toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-      tinycomments_mode: 'embedded',
-      tinycomments_author: 'Author name',
-      mergetags_list: [
-        { value: 'First.Name', title: 'First Name' },
-        { value: 'Email', title: 'Email' },
-      ],
-      ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+      menubar: false,
+      setup: (editor) => {
+        editor.on('init', () => {
+          editor.getContainer().style.transition='border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out';
+        });
+        editor.on('focus', () => {
+          editor.getContainer().style.boxShadow='0 0 0 .2rem rgba(0, 123, 255, .25)';
+          editor.getContainer().style.borderColor='#80bdff';
+        });
+        editor.on('blur', () => {
+          editor.getContainer().style.boxShadow='';
+          editor.getContainer().style.borderColor='';
+        });
+      }
     });
 </script>
 
